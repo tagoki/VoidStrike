@@ -1,3 +1,4 @@
+import os
 import json
 import urllib.request
 import urllib.error
@@ -83,13 +84,17 @@ def send_ollama_request(
     prompt: str,
     model_name: str,
     temperature: float = 0.7,
-    api_url: str = "http://localhost:11434/api/generate",
+    api_url: str = None,
     timeout: int = 7200,  # 2 часа (7200 секунд)
 ) -> str:
     """
     Отправляет запрос к локальному REST API Ollama (stream: False).
     Таймаут по умолчанию установлен на 2 часа (7200 секунд).
     """
+    if api_url is None:
+        base_host = os.environ.get("OLLAMA_HOST", "http://localhost:11434").rstrip("/")
+        api_url = f"{base_host}/api/generate"
+
     payload = {
         "model": model_name,
         "prompt": prompt,

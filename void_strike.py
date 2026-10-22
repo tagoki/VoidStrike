@@ -20,12 +20,13 @@ console = Console()
 def get_ollama_models() -> List[str]:
     """
     Получает список локально доступных моделей Ollama.
-    Сначала пытается через REST API (http://localhost:11434/api/tags),
+    Сначала пытается через REST API ($OLLAMA_HOST/api/tags),
     в случае неудачи пробует через команду 'ollama list'.
     """
+    base_host = os.environ.get("OLLAMA_HOST", "http://localhost:11434").rstrip("/")
     # 1. Попытка через REST API
     try:
-        req = urllib.request.Request("http://localhost:11434/api/tags")
+        req = urllib.request.Request(f"{base_host}/api/tags")
         with urllib.request.urlopen(req, timeout=3) as resp:
             data = json.loads(resp.read().decode("utf-8"))
             models = [m["name"] for m in data.get("models", []) if "name" in m]

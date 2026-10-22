@@ -1,0 +1,18 @@
+services:
+  voidstrike:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: voidstrike:latest
+    container_name: voidstrike
+    stdin_open: true
+    tty: true
+    environment:
+      # Подключение к инстансу Ollama на хост-машине
+      - OLLAMA_HOST=http://host.docker.internal:11434
+    volumes:
+      # Проброс входных промптов и папки с генерируемыми отчетами
+      - ./prompts.txt:/app/prompts.txt
+      - ./reports:/app/reports
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
