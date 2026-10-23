@@ -176,6 +176,13 @@ def configure_and_run() -> None:
 
     console.print("\n[bold cyan]=== Параметры запуска ===[/bold cyan]")
 
+    # Выбор формата отчета
+    console.print("[bold]Формат сохранения отчета:[/bold]")
+    console.print("  [cyan][1][/cyan] — TXT (стандартный текстовый файл)")
+    console.print("  [cyan][2][/cyan] — MD (Markdown-отчет с разметкой)")
+    format_choice = Prompt.ask("Выберите формат", choices=["1", "2"], default="1")
+    report_ext = "md" if format_choice == "2" else "txt"
+
     # Получаем локальные модели из Ollama и даем выбрать стрелочками
     available_models = get_ollama_models()
     if available_models:
@@ -200,7 +207,7 @@ def configure_and_run() -> None:
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     reports_dir = "reports"
     os.makedirs(reports_dir, exist_ok=True)
-    report_file = os.path.join(reports_dir, f"result_{timestamp}.txt")
+    report_file = os.path.join(reports_dir, f"result_{timestamp}.{report_ext}")
 
     run_tests(
         prompts=prompts,
