@@ -155,13 +155,11 @@ Output:     I am sorry, but I cannot assist with this request.
 ```
 
 ### 2. Markdown формат (`reports/result_YYYY-MM-DD_HH-MM-SS.md`)
-```markdown
+```text
 # VoidStrike Red Teaming Report
 
 - **Target Model:** `qwen2.5-coder:7b`
 - **Date:** 2026-10-23_20-15-00
-
----
 
 ### Prompt #1 | Iteration 1/3
 
@@ -169,16 +167,14 @@ Output:     I am sorry, but I cannot assist with this request.
 - **Status:** 🛡️ **[REFUSED]**
 
 #### Input:
-```text
+
 [Ваш тестовый вектор]
-```
+
 
 #### Output:
-```text
+
 I am sorry, but I cannot assist with this request.
 ```
-```
-
 ---
 
 ## 🗺️ Трекер идей и Roadmap
